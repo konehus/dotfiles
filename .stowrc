@@ -1,0 +1,3 @@
+--target=~/.config
+--ignore=.storc
+--ignore=DS_Store

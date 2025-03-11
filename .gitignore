@@ -1,0 +1,7 @@
+# Zsh completion dump files (generated dynamically)
+zsh/.zcompdump*
+zsh/.zcompdump-*.zwc
+
+# Zsh history (contains sensitive commands)
+zsh/.zhistory
+

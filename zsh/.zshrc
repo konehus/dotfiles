@@ -37,7 +37,7 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 # +--------+
 
 # Override colors
-eval "$(dircolors -b $ZDOTDIR/dircolors)"
+# eval "$(dircolors -b $ZDOTDIR/dircolors)"
 
 # +---------+
 # | ALIASES |
@@ -66,6 +66,7 @@ function _new_command {
 zle -N _new_command
 bindkey '^Xo' _new_command
 
+
 # +--------------------+
 # | TIME NOTIFICATIONS |
 # +--------------------+
@@ -85,45 +86,6 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 zmodload zsh/zprof
 
-# +-----------+
-# | VI KEYMAP |
-# +-----------+
-
-# Vi mode
-bindkey -v
-export KEYTIMEOUT=1
-
-# Change cursor
-source "$DOTFILES/zsh/plugins/cursor_mode"
-
-# Add Vi text-objects for brackets and quotes
-autoload -Uz select-bracketed select-quoted
-zle -N select-quoted
-zle -N select-bracketed
-for km in viopp visual; do
-  bindkey -M $km -- '-' vi-up-line-or-history
-  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-    bindkey -M $km $c select-quoted
-  done
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $km $c select-bracketed
-  done
-done
-
-# Emulation of vim-surround
-autoload -Uz surround
-zle -N delete-surround surround
-zle -N add-surround surround
-zle -N change-surround surround
-bindkey -M vicmd cs change-surround
-bindkey -M vicmd ds delete-surround
-bindkey -M vicmd ys add-surround
-bindkey -M visual S add-surround
-
-# Increment a number
-autoload -Uz incarg
-zle -N incarg
-bindkey -M vicmd '^a' incarg
 
 # +------------+
 # | COMPLETION |
@@ -175,17 +137,59 @@ source "$DOTFILES/zsh/bindings.zsh"
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 0 
-
-plugins=(git aws colored-man-pages colorize command-not-found extract
-	  fzf last-working-dir sdk spring sudo zoxide 
-	 zsh-interactive-cd web-search 
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+plugins=(git colored-man-pages 
+	 last-working-dir spring zoxide web-search 
 	 zsh-syntax-highlighting zsh-autosuggestions)
 
+# Skip all aliases, in lib files and enabled plugins
+zstyle ':omz:*' aliases no
 source $ZSH/oh-my-zsh.sh
 
 # VIM
-alias v="/usr/bin/nvim"
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-#chatgpt allias 
-alias gpt='chatgpt'
+# direnv
+eval "$(direnv hook zsh)"
+
+# +-----------+
+# | VI KEYMAP |
+# +-----------+
+
+# Vi mode
+bindkey -v
+
+# VI Mode!!!
+bindkey jj vi-cmd-mode
+
+# Change cursor
+source "$DOTFILES/zsh/plugins/cursor_mode"
+
+# Add Vi text-objects for brackets and quotes
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
+# Emulation of vim-surround
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -M vicmd cs change-surround
+bindkey -M vicmd ds delete-surround
+bindkey -M vicmd ys add-surround
+bindkey -M visual S add-surround
+
+# Increment a number
+autoload -Uz incarg
+zle -N incarg
+bindkey -M vicmd '^a' incarg

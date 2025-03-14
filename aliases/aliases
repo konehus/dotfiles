@@ -29,7 +29,7 @@ alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on uni
 # | eza  |
 # +------+
 alias l="eza --long --icons --git --all"
-alias ld='eza --long --only-dirs --icons=auto' 
+alias ld='eza --long --only-dirs --icons=auto -all' 
 alias lf='eza --long --only-files --icons --all'
 alias ll='eza --long --header --all --icons=auto --sort=name --group-directories-first'
 alias lt="eza --tree --level=2 --long --icons --git"
@@ -47,7 +47,6 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -iv'
-alias la='ls -alh'
 
 # +------+
 # | grep |
@@ -65,7 +64,8 @@ alias cb='xclip -sel clip'
 # | dust |
 # +------+
 
-alias dust='du -sh * | sort -hr'
+alias du='dust -d 1 | sort -hr'
+alias dusti='dust -d 2 --reverse'
 
 # +------+
 # | ping |
@@ -89,6 +89,7 @@ alias calc="noglob calcul"
 # | bat |
 # +-----+
 
+alias cat='bat'
 alias batl='bat --paging=never -l log'
 
 # +--------+
@@ -167,6 +168,7 @@ alias port="netstat -tulpn | grep"
 
 alias vim='nvim'
 alias vi='nvim'
+alias v="nvim"
 alias svim='sudoedit'
 alias dvim="vim -u /usr/share/nvim/archlinux.vim" # nvim with default config
 alias nvimc='rm -I $VIMCONFIG/swap/*'             # clean nvim swap file
@@ -299,3 +301,21 @@ alias ex='extract'
 
 alias ddg="duckduckgo"
 alias wiki="wikipedia"
+
+#thefuck
+eval $(thefuck --alias)
+eval $(thefuck --alias fk) 
+
+#Tealdeer
+alias explain='tldr'
+alias explainf='tldr --color always $(tldr --list | fzf --preview "tldr --color always {}") 1> /dev/null'
+
+#dog
+alias dnsinf='dog archlinux.com A AAAA MX TXT'
+
+#xh(http requiest)
+alias http='xh'
+alias download='xh --follow --download -o'
+
+#Zellij
+alias zj=zellij

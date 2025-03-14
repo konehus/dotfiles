@@ -203,7 +203,7 @@ function fgb() {
 		--bind="ctrl-f:+change-preview($git_diff)" \
 		--bind='ctrl-i:change-preview-label([ Commits ])' \
 		--bind="ctrl-i:+change-preview($git_log)" \
-		--bind='f1:toggle-header' \
+		 --bind='f1:toggle-header' \
 		--bind='f2:toggle-preview' \
 		--bind='ctrl-y:preview-up' \
 		--bind='ctrl-e:preview-down' \
@@ -352,7 +352,7 @@ fifa() {
     if [ ! "$#" -gt 0 ]; then return 1; fi
     local file
     file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
-        | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
+        | fzf -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
         && print -z "./$file" || return 1;
 }
 

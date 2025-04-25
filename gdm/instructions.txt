@@ -1,0 +1,5 @@
+dconf dump /org/gnome/ > ./org-gnome.txt  --that is how i saved gnome settings
+together
+
+
+ dconf load /org/gnome/ < org-gnome.txt   - to load back gnome settings

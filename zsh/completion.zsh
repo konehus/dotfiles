@@ -9,8 +9,6 @@
 # | General |
 # +---------+
 
-# source ./gambit.zsh
-
 # Load more completions
 fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
 
@@ -23,12 +21,6 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-
-bindkey -M menuselect '^xg' clear-screen
-bindkey -M menuselect '^xi' vi-insert                      # Insert
-bindkey -M menuselect '^xh' accept-and-hold                # Hold
-bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
-bindkey -M menuselect '^xu' undo                           # Undo
 
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files

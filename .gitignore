@@ -4,4 +4,6 @@ zsh/.zcompdump-*.zwc
 
 # Zsh history (contains sensitive commands)
 zsh/.zhistory
+zsh/zsh-autosuggestions/*
+zsh/zsh-syntax-highlighting/*
 

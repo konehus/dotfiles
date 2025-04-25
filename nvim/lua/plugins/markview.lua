@@ -1,0 +1,82 @@
+local gen_heading_spec = function(level, icon)
+  return {
+    style = "label",
+    padding_left = " ",
+    padding_right = " ",
+    corner_right = "" .. string.rep("", 6 - level),
+    corner_right_hl = "decorated_h" .. level .. "_inv",
+    icon = icon,
+    sign = "",
+    hl = "decorated_h" .. level,
+  }
+end
+
+require("markview").setup({
+  preview = {
+    modes = { "n", "no", "i", "c" },
+    hybrid_modes = { "i" },
+  },
+  markdown = {
+    headings = {
+      shift_width = -1,
+      heading_0 = gen_heading_spec(1, "󰼏  "),
+      heading_1 = gen_heading_spec(2, "󰎨  "),
+      heading_2 = gen_heading_spec(3, "󰼑  "),
+      heading_3 = gen_heading_spec(4, "󰎲  "),
+      heading_4 = gen_heading_spec(5, "󰼓  "),
+      heading_5 = gen_heading_spec(6, "󰎴  "),
+    },
+    code_blocks = {
+      enable = true,
+      style = "language",
+      hl = "dark",
+      position = "overlay",
+      min_width = 59,
+      pad_amount = 2,
+      language_names = { { "py", "python" }, { "cpp", "C++" }, { "java", "java" } },
+      language_direction = "right",
+      sign = false,
+      sign_hl = nil,
+    },
+  },
+  --stylua: ignore
+
+  highlight_groups = {
+    red             = { bg = "#453244", fg = "#f38ba8" },
+    red_fg          = { fg = "#f38ba8" },
+    orange          = { bg = "#46393E", fg = "#fab387" },
+    orange_fg       = { fg = "#fab387" },
+    yellow          = { bg = "#464245", fg = "#f9e2af" },
+    yellow_fg       = { fg = "#f9e2af" },
+    green           = { bg = "#374243", fg = "#a6e3a1" },
+    green_fg        = { fg = "#a6e3a1" },
+    blue            = { bg = "#2E3D51", fg = "#74c7ec" },
+    blue_fg         = { fg = "#74c7ec" },
+    mauve           = { bg = "#393B54", fg = "#cba6f7" },
+    mauve_fg        = { fg = "#cba6f7" },
+    grey            = { bg = "#7E839A", fg = "#313244" },
+    grey_fg         = { fg = "#7E839A" },
+    dark            = { link = "KazCodeBlock" },
+    dark_2          = { bg = "#303030", fg = "#B4BEFE" },
+    gradient_0      = { fg = "#6583b6" },
+    gradient_1      = { fg = "#637dac" },
+    gradient_2      = { fg = "#6177a2" },
+    gradient_3      = { fg = "#5f7198" },
+    gradient_4      = { fg = "#5d6c8e" },
+    gradient_5      = { fg = "#5b6684" },
+    gradient_6      = { fg = "#59607a" },
+    decorated_h1    = { bg = "#a6e3a1", fg = "#313244", bold = true },
+    decorated_h1_inv= { fg = "#a6e3a1", bold = true },
+    decorated_h2    = { bg = "#74c7ec", fg = "#313244", bold = true },
+    decorated_h2_inv= { fg = "#74c7ec", bold = true },
+    decorated_h3    = { bg = "#cba6f7", fg = "#313244", bold = true },
+    decorated_h3_inv= { fg = "#cba6f7", bold = true },
+    decorated_h4    = { bg = "#fab387", fg = "#313244", bold = true },
+    decorated_h4_inv= { fg = "#fab387", bold = true },
+    decorated_h5    = { bg = "#f38ba8", fg = "#313244", bold = true },
+    decorated_h5_inv= { fg = "#f38ba8", bold = true },
+    decorated_h6    = { bg = "#f9e2af", fg = "#313244", bold = true },
+    decorated_h6_inv= { fg = "#f9e2af", bold = true },
+  }
+,
+})

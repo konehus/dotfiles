@@ -1,174 +1,114 @@
 #!/usr/bin/env zsh
 
+# ==============================
+#          FILE PATHS
+# ==============================
 fpath=($DOTFILES/zsh/plugins $fpath)
 
-# +------------+
-# | NAVIGATION |
-# +------------+
+# ==============================
+#        NAVIGATION SETTINGS
+# ==============================
+setopt AUTO_CD              # Change directory without `cd`
+setopt AUTO_PUSHD           # Push old directory onto stack on `cd`
+setopt PUSHD_IGNORE_DUPS    # Ignore duplicate directories in stack
+setopt PUSHD_SILENT         # Suppress directory stack printout
+setopt CORRECT              # Enable spelling correction for commands
+setopt CDABLE_VARS          # Allow `cd` into a path stored in a variable
+setopt EXTENDED_GLOB        # Enable extended globbing syntax
 
-setopt AUTO_CD              # Go to folder path without using cd.
+# ==============================
+#        HISTORY SETTINGS
+# ==============================
+setopt EXTENDED_HISTORY          # Save history in `:start:elapsed;command` format
+setopt SHARE_HISTORY             # Share history across all sessions
+setopt HIST_EXPIRE_DUPS_FIRST    # Remove oldest duplicate first
+setopt HIST_IGNORE_DUPS          # Ignore consecutive duplicate commands
+setopt HIST_IGNORE_ALL_DUPS      # Remove all duplicates from history
+setopt HIST_FIND_NO_DUPS         # Ignore duplicates when searching history
+setopt HIST_IGNORE_SPACE         # Ignore commands starting with space
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate commands to history
+setopt HIST_VERIFY               # Require confirmation before executing expanded history command
 
-setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
-setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
-
-setopt CORRECT              # Spelling correction
-setopt CDABLE_VARS          # Change directory to a path stored in a variable.
-setopt EXTENDED_GLOB        # Use extended globbing syntax.
-
-source $DOTFILES/zsh/plugins/bd.zsh
-
-# +---------+
-# | HISTORY |
-# +---------+
-
-setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
-setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
-setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
-
-# +--------+
-# | COLORS |
-# +--------+
-
-# Override colors
-# eval "$(dircolors -b $ZDOTDIR/dircolors)"
-
-# +---------+
-# | ALIASES |
-# +---------+
-
+# ==============================
+#          ALIASES
+# ==============================
 source $DOTFILES/aliases/aliases
 
-# +---------+
-# | SCRIPTS |
-# +---------+
-
+# ==============================
+#          SCRIPTS
+# ==============================
 source $DOTFILES/zsh/scripts.zsh
-if [ -e "$DOTFILES_CLOUD/scripts.zsh" ]; then
-    source $DOTFILES_CLOUD/scripts.zsh
-fi
 
-source "$DOTFILES/zsh/plugins/fg_bg.sh"
-zle -N fg-bg
-bindkey '^Z' fg-bg
-
-function _new_command {
-    zle push-input
-    BUFFER=""
-}
-
-zle -N _new_command
-bindkey '^Xo' _new_command
-
-
-# +--------------------+
-# | TIME NOTIFICATIONS |
-# +--------------------+
-
-# Send notification when command line done
-source $DOTFILES/zsh/plugins/notifyosd.zsh
-
-# +--------+
-# | PROMPT |
-# +--------+
-eval "$(starship init zsh)"
+# ==============================
+#           PROMPT
+# ==============================
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
-# +-----------+
-# | PROFILING |
-# +-----------+
-
-zmodload zsh/zprof
-
-
-# +------------+
-# | COMPLETION |
-# +------------+
-
+# ==============================
+#        COMPLETION
+# ==============================
 source $DOTFILES/zsh/completion.zsh
-autoload -Uz $DOTFILES/zsh/plugins/kubectl-completion/zsh-kubectl-completion
 
-# +-----+
-# | Git |
-# +-----+
+# ==============================
+#          FZF (Fuzzy Finder)
+# ==============================
+# if [ $(command -v "fzf") ]; then
+#     source $DOTFILES/zsh/fzf.zsh
+# fi
+# Man Pages
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+# Using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
-# Add command gitit to open Github repo in default browser from a local repo
-source $DOTFILES/zsh/plugins/gitit.zsh
+# Changing Display mode  < https://vitormv.github.io/fzf-themes/ >
+export FZF_COLORS="
+  --color=fg:-1,fg+:#d0d0d0,bg:-1,bg+:#3e324d
+  --color=hl:#ed8796,hl+:#5fd7ff,info:#d4c1ea,marker:#b7bdf8
+  --color=prompt:#c6a0f6,spinner:#f4dbd6,pointer:#f4dbd6,header:#ed8796
+  --color=border:#4c3d5e,separator:#c6a0f6,label:#cad3f5,query:#d9d9d9 "
 
-# +-----+
-# | FZF |
-# +-----+
+export FZF_DEFAULT_OPTS="--height 60% \
+--border sharp \
+--layout reverse \
+$FZF_COLORS \
+--prompt '∷ ' \
+--pointer ▶ \
+--marker ⇒"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
 
-if [ $(command -v "fzf") ]; then
-    source $DOTFILES/zsh/fzf.zsh
-fi
-
-# +---------+
-# | Startup |
-# +---------+
-
-
-# +---------+
-# | BINDING |
-# +---------+
-
-# ctrl+l used for tmux (switch pane)
-# bindkey -r '^l'
-# bindkey -r '^g'
-# bindkey '^g' .clear-screen
-
-# bindkey -r '^p'
-# bindkey -s '^p' 'fpdf\n'
-
-# bindkey -s '^b' 'go run .\n'
-
-# edit current command line with vim (vim-mode, then CTRL-v)
+# ==============================
+#      EDITING COMMAND LINE
+# ==============================
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
-source "$DOTFILES/zsh/bindings.zsh"
-
-zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' frequency 0 
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-plugins=(git colored-man-pages 
-	 last-working-dir spring zoxide web-search 
-	 zsh-syntax-highlighting zsh-autosuggestions)
-
-# Skip all aliases, in lib files and enabled plugins
-zstyle ':omz:*' aliases no
-source $ZSH/oh-my-zsh.sh
-
-# VIM
+# ==============================
+#       VIM-LIKE NAVIGATION
+# ==============================
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-# direnv
-eval "$(direnv hook zsh)"
+# ==============================
+#       DIRENV SUPPORT
+# ==============================
+# eval "$(direnv hook zsh)"
 
-# +-----------+
-# | VI KEYMAP |
-# +-----------+
+# ==============================
+#         VI KEYMAPS
+# ==============================
+bindkey -v              # Enable Vi mode
 
-# Vi mode
-bindkey -v
-
-# VI Mode!!!
-bindkey jj vi-cmd-mode
-
-# Change cursor
-source "$DOTFILES/zsh/plugins/cursor_mode"
-
-# Add Vi text-objects for brackets and quotes
+# ==============================
+#     VI TEXT OBJECTS (Quotes & Brackets)
+# ==============================
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
+
 for km in viopp visual; do
   bindkey -M $km -- '-' vi-up-line-or-history
   for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
@@ -179,7 +119,9 @@ for km in viopp visual; do
   done
 done
 
-# Emulation of vim-surround
+# ==============================
+#        VIM-SURROUND EMULATION
+# ==============================
 autoload -Uz surround
 zle -N delete-surround surround
 zle -N add-surround surround
@@ -189,7 +131,10 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
-# Increment a number
-autoload -Uz incarg
-zle -N incarg
-bindkey -M vicmd '^a' incarg
+# ==============================
+#     AUTO-SUGGESTIONS & HIGHLIGHTING
+# ==============================
+bindkey '^@' autosuggest-accept
+source "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
+export GITHUB_TOKEN=$(secret-tool lookup service github username konehus)

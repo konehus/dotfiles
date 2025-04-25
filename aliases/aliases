@@ -166,7 +166,6 @@ alias port="netstat -tulpn | grep"
 # | Neovim |
 # +--------+
 
-alias vim='nvim'
 alias vi='nvim'
 alias v="nvim"
 alias svim='sudoedit'
@@ -176,7 +175,6 @@ alias nvimcu='rm -I $VIMCONFIG/undo/*'            # clean the vim undo
 alias nviml='nvim -w $VIMCONFIG/vimlog "$@"'      # log the keystrokes 
 alias nvimd='nvim --noplugin -u NONE'             # launch nvim without any plugin or config (nvim debug)
 alias nvimfr='nvim +e /tmp/scratchpad.md -c "set spelllang=fr"'
-alias lvim='\vim -c "set nowrap|syntax off"'        # fast vim for big files / big oneliner
 
 # +-----+
 # | Git |
@@ -302,10 +300,6 @@ alias ex='extract'
 alias ddg="duckduckgo"
 alias wiki="wikipedia"
 
-#thefuck
-eval $(thefuck --alias)
-eval $(thefuck --alias fk) 
-
 #Tealdeer
 alias explain='tldr'
 alias explainf='tldr --color always $(tldr --list | fzf --preview "tldr --color always {}") 1> /dev/null'
@@ -313,9 +307,56 @@ alias explainf='tldr --color always $(tldr --list | fzf --preview "tldr --color 
 #dog
 alias dnsinf='dog archlinux.com A AAAA MX TXT'
 
-#xh(http requiest)
+#so(http requiest)
 alias http='xh'
 alias download='xh --follow --download -o'
 
 #Zellij
 alias zj=zellij
+
+#zoxide
+alias zz='zoxide query --interactive'  # Use fzf to interactively select a directory
+function zf() {
+    zoxide query "$@" && cd "$(zoxide query "$@")"
+}
+
+# Jump to a directory and list contents
+function zl() {
+    zoxide query "$@" && cd "$(zoxide query "$@")" && ls
+}
+
+# Open directory in file manager (adjust "xdg-open" for Mac)
+function zo() {
+    zoxide query "$@" && xdg-open "$(zoxide query "$@")" &
+}
+
+# Create directory and change into it
+mkcd() {
+  if [ -z "$1" ]; 
+    then echo "Usage: mkcd <directory>"
+    return 1
+  fi
+  mkdir -p "$1" && cd "$1"
+}
+
+# Create empty file with path
+mkf() {
+  if [ -z "$1" ]; then
+    echo "Usage: mkf <file_path>"
+    return 1
+  fi
+  mkdir -p "$(dirname "$1")" && touch "$1"
+}
+
+# Create new Directory, change into it, and then create files
+mknew() {
+  if [ -z "$1" ]; then
+    echo "Usage: mknew <directory> [file1 file2 ...]"
+    return 1
+  fi
+  mkcd "$1" || return 1
+  shift
+  for file in "$@"; do
+    touch "$file"
+  done
+}

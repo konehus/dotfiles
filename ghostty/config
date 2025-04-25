@@ -1,0 +1,55 @@
+# Font
+font-family = JetBrainsMono Nerd Font Mono
+font-style = SemiBold
+font-size = 13
+
+# Turn-off ligatures default (look ~/.config/ghostty/nvim/config
+# == !=  <> |=> ++ -> ~~> /= ::= |>
+font-feature = -calt
+
+# Swap the foreground and background colors of the cell under
+cursor-invert-fg-bg = true
+cursor-style-blink = true
+selection-invert-fg-bg=true
+mouse-hide-while-typing = "true"
+alpha-blending = linear-corrected
+
+adjust-cell-height = 2
+adjust-cursor-height = 4
+theme = dark:cyberdream,light:cyberdream-light
+alpha-blending = linear-corrected
+
+background-opacity = 0.99
+unfocused-split-fill = 3a2a2a
+split-divider-color = 89b4fa
+
+# Clipboard
+clipboard-trim-trailing-spaces = true
+copy-on-select = true
+
+# Keybindings Leader=ctrl+a
+keybind = ctrl+a>d=toggle_window_decorations
+keybind = ctrl+a>c=clear_screen
+keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+a>0=close_surface
+keybind = ctrl+enter=unbind
+
+# Split create(leaderkey = ctrl+a)
+keybind = ctrl+a>n>h=new_split:left
+keybind = ctrl+a>n>l=new_split:right
+keybind = ctrl+a>n>j=new_split:down
+keybind = ctrl+a>n>k=new_split:up
+keybind = ctrl+a>n>n=new_split:auto
+
+# Split goto(leaderkey = ctrl+a)
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>k=goto_split:up
+
+
+# Split resize
+keybind = ctrl+shift+h=resize_split:left,20
+keybind = ctrl+shift+l=resize_split:right,20
+keybind = ctrl+shift+j=resize_split:down,18
+keybind = ctrl+shift+k=resize_split:up,20

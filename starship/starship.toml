@@ -26,18 +26,18 @@ format = '[[$symbol ](bold green)$branch(:[$remote_branch](bold purple))]($style
 [git_status]
 disabled = false
 style = 'bold mauve'
-conflicted = '[](bold red)'
-ahead = '[${count}](bold green)'
-diverged = '${ahead_count}${behind_count}'
-behind = '[${count}](bold maroon)'
+conflicted = '[](bold red)'
+ahead = '[](bold red)'
+diverged = '󰧈${ahead_count}${behind_count}'
+behind = '[](bold yellow)'
 untracked = '[ ${count}](red)'
 stashed = '[ 󰆧](bold $style)'
 modified = '[ ${count}](bold maroon)'
 staged = '[ ($count)](bold green)'
 renamed = ' 󰑇'
-deleted = '[${count}](bold red)'
-up_to_date = ''
-format = '[\[$all_status [$stashed](bold yellow)$ahead_behind\]]($style)'
+deleted = '[ 󰛉${count}](bold red)'
+up_to_date = '[](bold green)'
+format = '[ [](overlay1)($all_status) [$stashed](bold yellow)$ahead_behind]($style)'
 
 [aws]
 format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'

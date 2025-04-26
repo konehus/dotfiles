@@ -55,7 +55,6 @@ clue.setup({
     { mode = "n", keys = "<leader>gf", desc = "Find files" },
     { mode = "n", keys = "<leader>m",  desc = "Map" },
     { mode = "n", keys = "<leader>M",  desc = "Mini" },
-    { mode = "n", keys = "<leader>n",  desc = "Zk notes" },
     { mode = "n", keys = "<leader>s",  desc = "Search" },
     { mode = "n", keys = "<leader>x",  desc = "Quickfix" },
     { mode = "n", keys = "<leader>q",  desc = "Quit/session" },

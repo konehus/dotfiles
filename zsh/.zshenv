@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+add_paths() {
+  for d in "$@"; do
+    [[ -d "$d" && ! "$PATH" =~ (^|:)$d(:|$) ]] && PATH="$PATH:$d"
+  done
+}
+
+add_paths ~/bin ~/scripts
+
 # ~/.zshenv - Global environment configuration
 # This file sets essential environment variables, paths, locale settings, 
 # and history configuration is sourced for all Zsh sessions, 
@@ -51,7 +59,7 @@ export SHELL=$(command -v zsh)
 export VIMCONFIG="$XDG_CONFIG_HOME/nvim"
 
 # #Set paths (prepend custom paths to ensure priority)
-export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+# export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 #bat
 # export BAT_CONFIG_DIR="$XDG_CONFIG_DIR/bat"

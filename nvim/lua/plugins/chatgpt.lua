@@ -1,5 +1,5 @@
 require("chatgpt").setup({
-  api_key_cmd = "secret-tool lookup service chatgpt api_key openai",
+  api_key_cmd = "secret-tool lookup service openai",
   openai_params = {
     model = "gpt-4o",
     max_tokens = 4096,

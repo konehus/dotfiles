@@ -11,6 +11,7 @@ font-feature = -calt
 cursor-invert-fg-bg = true
 cursor-style-blink = true
 selection-invert-fg-bg=true
+window-decoration=none
 mouse-hide-while-typing = "true"
 alpha-blending = linear-corrected
 

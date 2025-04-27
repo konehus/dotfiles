@@ -36,13 +36,26 @@ export SCREENRC="${XDG_CONFIG_HOME:-$HOME/.config}/screen/screenrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export VIMCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 export BAT_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/bat"
+export MAVEN_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/maven"         # where settings.xml will sit
+export NPM_CONFIG_INIT_MODULE="${XDG_CONFIG_HOME:-$HOME/.config}/npm/config/npm-init.js"
+export NPM_CONFIG_TMP="${XDG_CONFIG_HOME:-$HOME/.config}/npm"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME:-$HOME/.config}/java"
 export BAT_CONFIG_PATH="$BAT_CONFIG_DIR/bat.conf"
 
+
+export CUDA_CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/nv"
+export NPM_CONFIG_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/npm"
+
 export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/shares}/gnupg"
+export GOPATH="${XDG_DATA_HOME:-$HOME/.local/shares}/go"
+export GRADLE_USER_HOME="${XDG_DATA_HOME:-$HOME/.local/shares}/gradle"
+export MAVEN_USER_HOME="$XDG_DATA_HOME/maven"        # binaries + wrapper cache
 
 # Personal environment variables
 export WORKSPACE="$HOME/workspace"
-export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash/history"
 
 # Ensure Zsh is the default shell
 export SHELL=$(command -v zsh)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"

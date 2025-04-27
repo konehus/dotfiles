@@ -1,0 +1,16 @@
+prepend_conds = [
+   { if = "link", fg = "magenta" },  # Hidden
+   { if = "hidden & dir", fg = "yellow" },  # Hidden directories
+   { if = "hidden", fg = "yellow"  },  # Hidden
+]
+
+[icon]
+prepend_conds = [
+   { if = "link",  text = "", fg = "magenta" },  # Hidden
+   { if = "hidden & dir",text = "󰘓", fg = "#808080" },  # Hidden directories
+   { if = "hidden",text = "󰘓", fg = "#808080"  },  # Hidden
+]
+
+[flavor]
+dark  = "tokyo-night"
+light = "tokyo-night"

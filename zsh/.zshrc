@@ -32,6 +32,7 @@ FZF_COLORS=$'
 export FZF_DEFAULT_OPTS="--height 60% --border sharp --layout reverse $FZF_COLORS --prompt '∷ ' --pointer ▶ --marker ⇒"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
 
+
 # Key Bindings
 bindkey -v
 autoload -Uz edit-command-line
@@ -49,7 +50,19 @@ autoload -Uz compinit && compinit
 [[ -f "$ZSH_PLUGIN_DIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && source "$ZSH_PLUGIN_DIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
 [[ -f "$ZSH_PLUGIN_DIR/zaw/zaw.zsh" ]] && source "$ZSH_PLUGIN_DIR/zaw/zaw.zsh"
 
-# FZF Helpers
+
+# zsh-autosuggestions -- common key-bindings
+# Accept the current suggestion
+bindkey '^F' autosuggest-accept        # Ctrl-F
+bindkey -M viins '^F' autosuggest-accept
+bindkey '^E' autosuggest-execute       # Ctrl-E  (end & execute)
+bindkey '^K' autosuggest-clear         # Ctrl-K
+bindkey '^T'  autosuggest-toggle       # Ctrl-T  (single stroke)
+
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # Vim Surround Emulation
 autoload -Uz surround
@@ -61,9 +74,13 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
+
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
 # Environment
 export JDK24="/usr/lib/jvm/java-24-openjdk"
 export JDK21="/usr/lib/jvm/java-21-openjdk"
 export JDK17="/usr/lib/jvm/java-17-openjdk"
 export JDK8="/usr/lib/jvm/java-8-openjdk"
 export JDK21_SRC="$JDK21/lib/src.zip"
+alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"

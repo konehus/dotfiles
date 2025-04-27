@@ -1,4 +1,10 @@
---target=~
---restow
---ignore=.storc
+--target=~/.config
+--ignore=.stowrc
 --ignore=DS_Store
+--ignore=gdm
+--ignore=zmk-config
+--ignore=.git-crypt
+--ignore=.gitattributes
+--ignore=setup.sh
+--ignore=zsh/.zhistory
+--ignore=zsh/.zcompdump

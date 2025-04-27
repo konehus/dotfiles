@@ -1,34 +1,27 @@
 #!/usr/bin/env bash
 
-set -e  # Exit on error
+set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZSH_PLUGIN_DIR="$HOME/.config/zsh/plugins"
+SYSTEM_ZSHENV="/etc/zsh/zshenv"
 
-echo "Setting up dotfiles from $DOTFILES_DIR"
+echo "Configuring ZDOTDIR..."
 
-# Function to stow a directory
-stow_dir() {
-  local dir="$1"
-  local target="$2"
+# Add ZDOTDIR to /etc/zsh/zshenv if not already present
+if grep -q "ZDOTDIR" "$SYSTEM_ZSHENV" 2>/dev/null; then
+  echo "ZDOTDIR already set in $SYSTEM_ZSHENV"
+else
+  echo 'export ZDOTDIR="$HOME/.config/zsh"' | sudo tee -a "$SYSTEM_ZSHENV"
+  echo "Added ZDOTDIR to $SYSTEM_ZSHENV"
+fi
 
-  echo "Stowing $dir to $target"
-  stow --dir="$DOTFILES_DIR" --target="$target" --restow "$dir"
-}
+echo "Stowing dotfiles to ~/.config"
+stow .
 
-# 1. Stow .zshenv to $HOME
-stow_dir "zsh" "$HOME"
-
-# 2. Stow config/ to ~/.config/
-stow_dir "config" "$HOME/.config"
-
-# 3. Setup Zsh plugins
 echo "Setting up Zsh plugins in $ZSH_PLUGIN_DIR"
-
-# Ensure plugin directory exists
 mkdir -p "$ZSH_PLUGIN_DIR"
 
-# Define plugin list
 declare -A plugins=(
   ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
   ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
@@ -38,11 +31,9 @@ declare -A plugins=(
   ["zaw"]="https://github.com/zsh-users/zaw"
 )
 
-# Clone or update each plugin
 for name in "${!plugins[@]}"; do
   repo="${plugins[$name]}"
   dest="$ZSH_PLUGIN_DIR/$name"
-
   if [ -d "$dest/.git" ]; then
     echo "Updating $name..."
     git -C "$dest" pull --ff-only

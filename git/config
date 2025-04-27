@@ -1,0 +1,7 @@
+[user]
+	name = Henok Haile
+	email = konehus@gmail.com
+[credential]
+	helper = cache
+[pull]
+	ff = only

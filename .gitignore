@@ -1,9 +1,7 @@
 # Zsh completion dump files (generated dynamically)
-zsh/.zcompdump*
-zsh/.zcompdump-*.zwc
+config/zsh/.zcompdump*
+config/zsh/.zcompdump-*.zwc
 
 # Zsh history (contains sensitive commands)
-zsh/.zhistory
-zsh/zsh-autosuggestions/*
-zsh/zsh-syntax-highlighting/*
-
+config/zsh/.zhistory
+config/zsh/plugins

@@ -1,3 +1,4 @@
---target=~/.config
+--target=~
+--restow
 --ignore=.storc
 --ignore=DS_Store

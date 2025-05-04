@@ -1,2 +1,4 @@
 secretfile filter=git-crypt diff=git-crypt
-.ssh/*.key filter=git-crypt diff=git-crypt
+.ssh/* filter=git-crypt diff=git-crypt
+
+

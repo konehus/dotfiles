@@ -173,9 +173,14 @@ alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settin
 
 # Folders
 alias work="$HOME/workspace"
+alias dot="$HOME/.dotfiles"
 alias doc="$HOME/Documents"
 alias dow="$HOME/Downloads"
-alias dot="$HOME/.dotfiles"
+
+alias conf="$XDG_CONFIG_HOME"
+alias state="$XDG_STATE_HOME"
+alias data="$XDG_DATA_HOME"
+alias cache="$XDG_CACHE_HOME"
 
 # Golang
 alias gosrc="$GOPATH/src/" # golang src

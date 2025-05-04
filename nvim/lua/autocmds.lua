@@ -54,3 +54,32 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     require("conform").format({ async = false, lsp_fallback = true })
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = vim.api.nvim_create_augroup("legion-disable-temp-files", { clear = true }),
+  pattern = "/dev/shm/gopass*",
+  callback = function()
+    print("Safe!")
+    vim.opt_local.swapfile = false
+    vim.opt_local.backup = false
+    vim.opt_local.undofile = false
+    vim.opt.shada = ""
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "/dev/shm/**/*", "/**/*.gpg" }, -- adjust to taste
+  callback = function()
+    vim.notify("Safe to continue...", vim.log.levels.INFO)
+    vim.opt_local.swapfile = false
+    vim.opt_local.backup = false
+    vim.opt_local.writebackup = false
+    vim.opt_local.undofile = false
+    vim.opt_local.shadafile = "NONE"
+    vim.opt_local.shada = "" -- no command/register history saved
+    vim.opt_local.modelines = 0
+    vim.opt_local.hlsearch = false
+  end,
+})
+-- " neovim on Linux
+-- autocmd BufNewFile,BufRead /dev/shm/gopass* setlocal noswapfile nobackup noundofile shada=""

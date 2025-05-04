@@ -43,14 +43,19 @@ export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME:-$HOME/.config}/java"
 export BAT_CONFIG_PATH="$BAT_CONFIG_DIR/bat.conf"
 
-
 export CUDA_CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/nv"
 export NPM_CONFIG_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/npm"
 
+
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/shares}/pass"
+export PASSWORD_STORE_TOMB_FILE="${XDG_DATA_HOME:-$HOME/.local/shares}/pass-tomb/.password.tomb"
+export PASSWORD_STORE_TOMB_KEY="${XDG_DATA_HOME:-$HOME/.local/shares}/pass-tomb/.password.tomb.key"
 export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/shares}/gnupg"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/shares}/go"
 export GRADLE_USER_HOME="${XDG_DATA_HOME:-$HOME/.local/shares}/gradle"
-export MAVEN_USER_HOME="$XDG_DATA_HOME/maven"        # binaries + wrapper cache
+export MAVEN_USER_HOME="${XDG_DATA_HOME:-$HOME/.local/shares}/maven"        # binaries + wrapper cache
+export PYTHON_HISTORY="${XDG_DATA_HOME:-$HOME/.local/shares}/python/history"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/shares}/rustup"
 
 # Personal environment variables
 export WORKSPACE="$HOME/workspace"

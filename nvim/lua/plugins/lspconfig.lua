@@ -122,6 +122,7 @@ vim.list_extend(ensure_installed, {
   "google-java-format",
   "xmlformatter",
   "yaml-language-server",
+  "lua-language-server",
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

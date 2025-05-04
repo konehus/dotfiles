@@ -1,7 +1,12 @@
 [user]
 	name = Henok Haile
-	email = konehus@gmail.com
+	email = me@henoha.com
+	signingkey = 3C1D945F
 [credential]
 	helper = cache
 [pull]
 	ff = only
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true

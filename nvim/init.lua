@@ -1,8 +1,6 @@
 --stylua: ignore start
 
--- ============================================================================
 -- Initialization =============================================================
--- ============================================================================
 _G.Config = {}
 
 -- Bootstrap mini.nvim ========================================================
@@ -34,17 +32,13 @@ local load = function(spec, opts)
   end
 end
 
--- ============================================================================
 -- Core Configs ===============================================================
--- ============================================================================
 now(load("settings"))
 now(load("utils"))
 now(load("mappings"))
 now(load("autocmds"))
 
--- ============================================================================
 -- UI: Colorschemes and Core UI Plugins =======================================
--- ============================================================================
 now(load("folke/tokyonight.nvim", {init="plugins.tokyodark"}))
 now(cmd("colorscheme tokyonight-night"))
 
@@ -57,9 +51,7 @@ now(load("plugins.mini.files"))
 later(load("plugins.mini.statusline"))
 later(load("mini.tabline", { setup = {} }))
 
--- ============================================================================
 -- Mini Plugins ===============================================================
--- ============================================================================
 local mini_plugins = {
   "mini.align", "mini.bracketed", "mini.bufremove", "mini.colors", "mini.comment",
   "mini.cursorword", "mini.extra", "mini.jump", "mini.move", "mini.operators",
@@ -78,9 +70,7 @@ for _, p in ipairs(custom_mini_plugins) do
   later(load(p))
 end
 
--- ============================================================================
 -- Build Hooks ================================================================
--- ============================================================================
 local build_fzf_native = function(args)
   vim.notify('Building fzf-native', vim.log.levels.INFO)
   vim.system({"make", "-C", args.path}, {text = true}, function(r)
@@ -105,9 +95,6 @@ local build_codesnap = function(args)
   end)
 end
 
--- ============================================================================
--- Other Plugins ==============================================================
--- ============================================================================
 -- Core UI plugins ------------------------------------------------------------
 now(load('fei6409/log-highlight.nvim', { init = 'log-highlight', setup = {} }))
 now(load("folke/noice.nvim", { init = "plugins.noice", add = { depends = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } } }))

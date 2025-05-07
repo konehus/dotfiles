@@ -18,7 +18,7 @@ export XDG_PICTURES_DIR="$HOME/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Videos"
 
 #Set paths (prepend custom paths to ensure priority)
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$XDG_DATA_HOME/npm/bin:$PATH"
 
 # Set user-specific environment variables
 export EDITOR="nvim"
